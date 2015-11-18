@@ -26,7 +26,7 @@
     <h1 class="ls-brand-name">
       <a href="inicio.php" class="ls-ico-ftp">
         <small>Painel do administrador</small>
-        Repositório Institucional
+        RIIFBA
       </a>
     </h1>
 

@@ -102,7 +102,7 @@ if($form && $form['submit']){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" target="__blank" href="http://conquista.ifba.edu.br/">
       	<img alt="Repositório Institucional IFBA Campus Vitória da Conquista" class="img-responsive img" src="assets/images/ifba.png">
       </a>
     </div>
@@ -110,7 +110,7 @@ if($form && $form['submit']){
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="li-login"><a href="admin.php" class="login" style="color:#1de571;" title="Área do Administrador"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
+        <li class="li-login"><a href="admin.php" class="login" style="color:#FFFFFF;" title="Área do Administrador"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
         <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -141,7 +141,7 @@ if($form && $form['submit']){
 
 				<div class="form-group col-lg-5 col-md-5">
 			    	<label class="sr-only" for="">Digite um termo para busca</label>
-					<input type="search" class="form-control inp" name="busca" id="" placeholder="Digite um termo para pesquisar...">
+					<input type="search" class="form-control inp" name="busca" id="" placeholder="Digite um termo para pesquisar..." required>
 				</div>
 
 				<div class="form-group col-lg-3 col-md-3">
@@ -174,11 +174,12 @@ if($form && $form['submit']){
 	
 	
 	
-	<hr>
+	
 	<?php
 		if ($read->getResult()){
 	
 	echo '
+	<hr>
 	<div class="col-lg-12 col-md-12 contorno-table">
 		<table class="ls-table a ls-bg-header ls-table-striped ls-table-bordered display" cellspacing="0" cellpadding="0" border="0" id="tb1">
 			<thead>

@@ -42,17 +42,7 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	        <li class="li-login"><a href="index.php" class="login" style="color:#1de571;" title="Página Inicial"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-	        <!-- <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	          </ul>
-	        </li> -->
+	        <li class="li-login"><a href="index.php" class="login" style="color:#FFFFFF;" title="Página Inicial"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -97,30 +87,29 @@
 
 
 
-	<div class="container abc">
+	<div class="container">
 
 		<div class="row text-center">
 			<!-- <h1>RI<span class="ft">IFBA</span></h1> -->
-			<h2>ÁREA DO ADMINISTRADOR</h2>
-			
+						
 
-			<div class="col-md-12 col-lg-12">
+			<div class="col-md-4 col-lg-4 col-xs-12 contor col-lg-offset-4 col-md-offset-4">
+			<!-- <h2 class="hh">ÁREA DO ADMINISTRADOR</h2> -->
+			<p><img src="assets/images/l.png"></p>
 				<form action="" method="post" name="AdminLoginForm">
 
 					<div class="form-group col-lg-12 col-md-12">
 				    	<label class="sr-only" for="">Usuário</label>
-						<input type="text" class="form-control inp" name="user" placeholder="Usuário" required>
+						<input type="text" class="form-control i" name="user" placeholder="Usuário" required>
 					</div>
 
 					<div class="form-group col-lg-12 col-md-12">
-				    	<label class="sr-only" for="">Usuário</label>
-						<input type="password" class="form-control inp" name="pass" placeholder="Senha" required>
+				    	<label class="sr-only" for="">Senha</label>
+						<input type="password" class="form-control i" name="pass" placeholder="Senha" required>
 					</div>
 
-					
-
-					<div class="form-group col-lg-2 col-md-2">
-						<input type="submit" class="btn btn-default inp bt-lg" name="AdminLogin" value="Logar">
+					<div class="form-group col-lg-12 col-md-12">
+						<input type="submit" class="btn btn-default i bt-entrar" name="AdminLogin" value="Entrar">
 					</div>
 
 				</form>

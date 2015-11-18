@@ -27,3 +27,12 @@
 	margin-top: 50px;
 	border-top: 10px solid #bdc3c7;
 }
+.ls-theme-green .ls-topbar {
+    background-color: #2fcc72;
+}
+.ls-theme-green .ls-brand-name {
+    background-color: #2fcc72;
+}
+.ls-theme-green .ls-user-account {
+    background: #27ae60;
+}

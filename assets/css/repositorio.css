@@ -178,3 +178,34 @@ h2{
 	color: #16a085;
 	/*text-decoration: none;*/
 }
+.contor{
+	background-color: rgba(236, 240, 241, 0.9);
+	padding: 70px 10px;
+	box-shadow: 0px 4px 10px #27ae60;
+	margin-top: 15px;
+}
+.i{
+	height: 50px;
+	font-family: 'rr';
+	width: 100%;
+	background-color: #f6f8f9;
+	border-radius: 0px;
+	border-style: none;
+}
+.bt-entrar{
+	width: 100%;
+	font-family: 'gb';
+	text-transform: uppercase;
+	background-color: #2ecc71;
+	border-style: none;
+	color: #FFFFFF;
+}
+.bt-entrar:hover{
+	background-color: #2c3e50;
+	/*box-shadow: 0px 4px 10px #1f914f;*/
+	color: #FFFFFF;
+}
+.hh{
+	color: #2c3e50;
+	margin-bottom: 20px;
+}
