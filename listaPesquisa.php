@@ -1,4 +1,4 @@
-<?php 	
+ï»¿<?php 	
 	session_start();
 	require 'app/Config.inc.php';
 	$login = new Login();
@@ -12,8 +12,13 @@
 		$userLogin = $_SESSION['userlogin'];
 	}
 	
+	$mensagem = '';
+	$tipo = '';
+	$excluir = '';
+	$excluirTipo = '';
 	
 	$read = new Read();
+	$resultado = true;
 	
 	$form= filter_input_array(INPUT_POST, FILTER_DEFAULT);
 	if($form && $form['submit']){
@@ -21,73 +26,50 @@
 		if (isset($form['submit'])){
 		
 			if ((!$_POST['outorga']) && (!$_POST['titulo']) && (!$_POST['autores'])){
-			echo "Tudo vazio!";			
+				
+				$mensagem = "Informe um dos campos para pesquisar!";
+				$tipo = RI_MSG_DANGER;
 			
 			} 
 			else if (($_POST['outorga'])){
-				echo "Termo de outorga";
+				//echo "Termo de outorga";
 				
-				$read = new Read();
+				//$read = new Read();
 				$read->FullRead("SELECT * FROM pesquisa WHERE outorga LIKE :like", "like={$_POST['outorga']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
-					
-				//$read->setPlaces("name=firefox&views=2&limit=2");
-					
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
-
+								
+				if(!$read->getResult()){
+					$resultado = false;
 				}
-					
-				//outorga, titulo, autores
-					
-				var_dump($read);
 				
 			}
 			else if (($_POST['titulo'])){
-				echo "Título";
-	
-				$read = new Read();
-				$read->FullRead("SELECT * FROM pesquisa WHERE titulo LIKE :like", "like={$_POST['titulo']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
-				
-				//$read->setPlaces("name=firefox&views=2&limit=2");
-				
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
+				//echo "TÃ­tulo";
 
+				//$read = new Read();
+				$read->FullRead("SELECT * FROM pesquisa WHERE titulo LIKE :like", "like=%{$_POST['titulo']}%");
+				
+				if(!$read->getResult()){
+					$resultado = false;
 				}
 				
-				//outorga, titulo, autores
-				
-				var_dump($read);
 			}
 			else if (($_POST['autores'])){
-				echo "Autores";
-								
-				$read = new Read();
-				$read->FullRead("SELECT * FROM pesquisa WHERE autores LIKE :like", "like={$_POST['autores']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
+				//echo "Autores";
 				
-				//$read->setPlaces("name=firefox&views=2&limit=2");
+				//$read = new Read();
+				$read->FullRead("SELECT * FROM pesquisa WHERE autores LIKE :like", "like=%{$_POST['autores']}%");
 				
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
-					
+				if(!$read->getResult()){
+					$resultado = false;
 				}
 				
-				//outorga, titulo, autores
-				
-				var_dump($read);
 			}
 		
 		}
 		
 		
 	}
-	
+		
 	if (isset($_GET['e'])){
 		
 		$e = $_GET['e'];
@@ -98,11 +80,12 @@
 		
 		
 		if ($delete->getResult()){
-			echo "{$delete->getRowCount()} removidos com sucesso!";
+
+			$excluir = 'Removido com sucesso!';
+			$excluirTipo = RI_MSG_SUCCESS;			
+
 		}
-		
-		var_dump($delete);
-		
+				
 	}
 	
 	
@@ -112,7 +95,7 @@
 <!DOCTYPE html>
 <html class="ls-theme-green">
   <head>
-    <title>Repositório IFBA - VCA</title>
+    <title>RepositÃ³rio Institucional - IFBA - VCA</title>
 
     <?php require_once('assets.php');?>
 
@@ -139,7 +122,7 @@
 				// "sPaginationType": "full_numbers",
 				// "sDom": '<"H"Tlfr>t<"F"ip>',
 				"oLanguage": {
-					"sLengthMenu": "Registros/Página _MENU_",
+					"sLengthMenu": "Registros/PÃ¡gina _MENU_",
 					"sZeroRecords": "Nenhum registro encontrado",
 					"sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
 					"sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
@@ -148,8 +131,8 @@
 					"oPaginate": {
 						// "sFirst": " Primeiro ",
 						"sPrevious": " Anterior ",
-						"sNext": " Próximo ",
-						// "sLast": " Último "
+						"sNext": " PrÃ³ximo ",
+						// "sLast": " Ãšltimo "
 					}
 				},
 				"aaSorting": [[0, 'desc']],
@@ -169,18 +152,19 @@
     <main class="ls-main ">
       <div class="container-fluid">
         <h1 class="ls-title-intro ls-ico-search">Pesquisar Projeto de Pesquisa</h1>
-
+        
+        <?php MSG('Informe apenas um dos campos para pesquisar', RI_MSG_WARNING) ?>		
 	
-	<form action="" name="cadPesquisa" method="post" enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
+	<form action="listaPesquisa.php" name="cadPesquisa" method="post" enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
 		
 		<label class="ls-label col-lg-12 col-xs-12">
-	      <b class="ls-label-text">Número do Termo de Outorga:</b>
-	      <input type="text" name="outorga" placeholder="Número do Processo ou Termo de Outorga" class="ls-field">
+	      <b class="ls-label-text">NÃºmero do Termo de Outorga:</b>
+	      <input type="text" name="outorga" placeholder="NÃºmero do Processo ou Termo de Outorga" class="ls-field">
 	    </label>
 
 		<label class="ls-label col-lg-12 col-xs-12">
-	      <b class="ls-label-text">Título:</b>
-	      <input type="text" name="titulo" placeholder="Título do Projeto de Pesquisa" class="ls-field">
+	      <b class="ls-label-text">TÃ­tulo:</b>
+	      <input type="text" name="titulo" placeholder="TÃ­tulo do Projeto de Pesquisa" class="ls-field">
 	    </label>
 	 
 	    <label class="ls-label col-lg-12 col-xs-12">
@@ -196,6 +180,35 @@
 
 	</form>
 	
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if ($mensagem != ''){
+			MSG($mensagem, $tipo);
+			$excluir = '';
+			$excluirTipo = '';
+		}
+	    ?>
+	</div>
+		
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if ($excluirTipo != ''){
+			MSG($excluir, $excluirTipo);
+			$mensagem = '';
+			$tipo = '';
+		}
+		?>
+	</div>
+	
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if (!$resultado){
+				
+			MSG("Nenhum resultado encontrado!", RI_MSG_DANGER);
+		
+		}
+		?>
+	</div>	
 	<hr>
 	
 	<?php
@@ -204,21 +217,21 @@
 	echo '
 	<table class="ls-table ls-bg-header ls-table-striped ls-table-bordered display" cellspacing="0" cellpadding="0" border="0" id="tb1">
 		<thead>
-			<th>Nº Outorga</th>
-			<th>Título</th>
+			<th>NÂº Outorga</th>
+			<th>TÃ­tulo</th>
 			<th>Aluno</th>
-			<th>Editar</th>
-			<th>Excluir</th>
+			<th>OperaÃ§Ãµes</th>
 		</thead>
 		<tbody>';
 				
 					foreach ($read->getResult() as $p){
 						echo '<tr>';
-							echo '<td>'.utf8_decode($p['outorga']).'</td>';
-							echo '<td>'.utf8_decode($p['titulo']).'</td>';
-							echo '<td>'.utf8_decode($p['autores']).'</td>';
-							echo '<td><a href="editarPesquisa.php?id='.$p['id'].'">Editar</a></td>';
-							echo '<td><a onclick="return confirmar();" href="listaPesquisa.php?e='.$p['id'].'">Excluir</a></td>';
+							echo '<td style="text-align:justify;">'.$p['outorga'].'</td>';
+							echo '<td style="text-align:center;">'.$p['titulo'].'</td>';
+							echo '<td style="text-align:center;">'.$p['autores'].'</td>';
+							echo '<td style="text-align:center;"><a href="editarPesquisa.php?id='.$p['id'].'" class="ls-btn ls-ico-edit-admin bt-editar" title="Editar"></a>
+									  <a onclick="return confirmar();" href="listaPesquisa.php?e='.$p['id'].'" class="ls-btn ls-ico-remove bt-deletar-reprovar" title="Excluir"></a>
+								 </td>';
 						echo '</tr>';
 					
 					}
@@ -234,36 +247,6 @@
 		<a href="cadastroPesquisa.php" class="ls-btn-primary col-lg-3 col-xs-12 botao-p ls-float-right">Cadastrar</a>
 	</div>
 	
-		
-	<?php
-	/*
-		if ($read->getResult()){
-			
-			
-			foreach ($read->getResult() as $p){
-				
-				echo $p['id'].'<br>';
-				echo utf8_decode($p['titulo']).'<br>';
-				echo utf8_decode($p['resumo']).'<br>';
-				echo $p['ano'].'<br>';
-				echo utf8_decode($p['autores']).'<br>';
-				echo utf8_decode($p['outorga']).'<br>';
-				echo utf8_decode($p['orientador']).'<br>';
-				echo utf8_decode($p['financiamento']).'<br>';
-				echo utf8_decode($p['area']).'<br>';
-				echo '<hr><br>';
-			}
-			
-			
-			
-			
-			
-		}
-		
-		*/
-	?>
-	
-
 	</div>
       <?php require_once('footer.php');?>
     </main>

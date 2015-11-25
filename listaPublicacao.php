@@ -1,4 +1,4 @@
-<?php 	
+ï»¿<?php 	
 	session_start();
 	require 'app/Config.inc.php';
 	$login = new Login();
@@ -13,78 +13,51 @@
 	}
 	
 	
+	$mensagem = '';
+	$tipo = '';
+	$excluir = '';
+	$excluirTipo = '';
+	
 	$read = new Read();
+	$resultado = true;
 	
 	$form= filter_input_array(INPUT_POST, FILTER_DEFAULT);
 	if($form && $form['submit']){
 	
 		if (isset($form['submit'])){
-			
-			
-			
-		
-	
+
 			if ((!$_POST['titulo']) && (!$_POST['autores']) && (!$_POST['evento'])){
-				echo "Tudo vazio!";			
+				$mensagem = "Informe um dos campos para pesquisar!";
+				$tipo = RI_MSG_DANGER;		
 				
 			} 
 			else if (($_POST['titulo'])){
-				echo "Título";
+				//echo "TÃ­tulo";
 				
 				
-				$read->FullRead("SELECT * FROM publicacao WHERE titulo LIKE :like", "like={$_POST['titulo']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
-					
-				//$read->setPlaces("name=firefox&views=2&limit=2");
-					
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
-
+				$read->FullRead("SELECT * FROM publicacao WHERE titulo LIKE :like", "like=%{$_POST['titulo']}%");
+				if(!$read->getResult()){
+					$resultado = false;
 				}
-					
-				//outorga, titulo, autores
-					
-				var_dump($read);
 				
 			}
 			else if (($_POST['autores'])){
-				echo "Autores";
+				//echo "Autores";
 	
-				//$read = new Read();
-				$read->FullRead("SELECT * FROM publicacao WHERE autores LIKE :like", "like={$_POST['autores']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
-				
-				//$read->setPlaces("name=firefox&views=2&limit=2");
-				
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
-
+				$read->FullRead("SELECT * FROM publicacao WHERE autores LIKE :like", "like=%{$_POST['autores']}%");
+				if(!$read->getResult()){
+					$resultado = false;
 				}
 				
-				//outorga, titulo, autores
-				
-				var_dump($read);
 			}
 			else if (($_POST['evento'])){
-				echo "Evento";
+				//echo "Evento";
 								
-				//$read = new Read();
 				$read->FullRead("SELECT * FROM publicacao WHERE evento LIKE :like", "like={$_POST['evento']}%");
-				//$read->ExeRead('pesquisa', 'WHERE outorga = :outorga LIMIT :limit', "name=chrome&views=2&limit=2");
-				
-				//$read->setPlaces("name=firefox&views=2&limit=2");
-				
-				if ($read->getConn()){
-					var_dump($read->getResult());
-					echo "<hr>";
-					
+				if(!$read->getResult()){
+					$resultado = false;
 				}
 				
-				//outorga, titulo, autores
-				
-				var_dump($read);
 			}
 			
 		}
@@ -104,10 +77,11 @@
 	
 	
 		if ($delete->getResult()){
-			echo "{$delete->getRowCount()} removidos com sucesso!";
+			
+			$excluir = 'Removido com sucesso!';
+			$excluirTipo = RI_MSG_SUCCESS;
+			
 		}
-	
-		var_dump($delete);
 	
 	}
 	
@@ -117,7 +91,7 @@
 <!DOCTYPE html>
 <html class="ls-theme-green">
   <head>
-    <title>Repositório IFBA - VCA</title>
+    <title>RepositÃ³rio Institucional - IFBA - VCA</title>
 
     <?php require_once('assets.php');?>
 
@@ -143,7 +117,7 @@
 				// "sPaginationType": "full_numbers",
 				// "sDom": '<"H"Tlfr>t<"F"ip>',
 				"oLanguage": {
-					"sLengthMenu": "Registros/Página _MENU_",
+					"sLengthMenu": "Registros/PÃ¡gina _MENU_",
 					"sZeroRecords": "Nenhum registro encontrado",
 					"sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
 					"sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
@@ -152,8 +126,8 @@
 					"oPaginate": {
 						// "sFirst": " Primeiro ",
 						"sPrevious": " Anterior ",
-						"sNext": " Próximo ",
-						// "sLast": " Último "
+						"sNext": " PrÃ³ximo ",
+						// "sLast": " Ãšltimo "
 					}
 				},
 				"aaSorting": [[0, 'desc']],
@@ -172,14 +146,15 @@
 
     <main class="ls-main ">
       <div class="container-fluid">
-        <h1 class="ls-title-intro ls-ico-search">Pesquisar Publicação</h1>
-
-	
-	<form action="" name="cadPublicacao" method="post" enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
+        <h1 class="ls-title-intro ls-ico-search">Pesquisar PublicaÃ§Ã£o</h1>
+		
+		<?php MSG('Informe apenas um dos campos para pesquisar', RI_MSG_WARNING) ?>
+		
+	<form action="listaPublicacao.php" name="cadPublicacao" method="post" enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
 
 		<label class="ls-label col-lg-12 col-xs-12">
-	      <b class="ls-label-text">Título:</b>
-	      <input type="text" name="titulo" placeholder="Título da Publicação" class="ls-field">
+	      <b class="ls-label-text">TÃ­tulo:</b>
+	      <input type="text" name="titulo" placeholder="TÃ­tulo da PublicaÃ§Ã£o" class="ls-field">
 	    </label>
 
 	    <label class="ls-label col-lg-12 col-xs-12">
@@ -200,6 +175,36 @@
 
 	</form>
 	
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if ($mensagem != ''){
+			MSG($mensagem, $tipo);
+			$excluir = '';
+			$excluirTipo = '';
+		}
+	    ?>
+	</div>
+		
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if ($excluirTipo != ''){
+			MSG($excluir, $excluirTipo);
+			$mensagem = '';
+			$tipo = '';
+		}
+		?>
+	</div>
+	
+	<div class="col-lg-12 col-xs-12">
+		<?php 
+		if (!$resultado){
+				
+			MSG("Nenhum resultado encontrado!", RI_MSG_DANGER);
+		
+		}
+		?>
+	</div>
+	
 	<hr>
 	
 	<?php
@@ -207,21 +212,21 @@
 	echo'
 	<table class="ls-table ls-bg-header ls-table-striped ls-table-bordered display" cellspacing="0" cellpadding="0" border="0" id="tb1">
 		<thead>
-			<th>Título</th>
-			<th>Autor (es)</th>
-			<th>Evento</th>
-			<th>Editar</th>
-			<th>Excluir</th>
+			<th style="text-align:center;">TÃ­tulo</th>
+			<th style="text-align:center;">Autor (es)</th>
+			<th style="text-align:center;">Evento</th>
+			<th style="text-align:center;">OperaÃ§Ãµes</th>
 		</thead>
 		<tbody>';
 				
 				foreach ($read->getResult() as $pub){
 					echo '<tr>';
-						echo '<td>'.utf8_decode($pub['titulo']).'</td>';
-						echo '<td>'.utf8_decode($pub['autores']).'</td>';
-						echo '<td>'.utf8_decode($pub['evento']).'</td>';
-						echo '<td><a href="editarPublicacao.php?id='.$pub['id'].'">Editar</a></td>';
-						echo '<td><a onclick="return confirmar();" href="listaPublicacao.php?e='.$pub['id'].'">Excluir</a></td>';
+						echo '<td style="text-align:justify;">'.$pub['titulo'].'</td>';
+						echo '<td style="text-align:center;">'.$pub['autores'].'</td>';
+						echo '<td style="text-align:center;">'.$pub['evento'].'</td>';
+						echo '<td style="text-align:center;"><a href="editarPublicacao.php?id='.$pub['id'].'" class="ls-btn ls-ico-edit-admin bt-editar" title="Editar"></a>
+								  <a onclick="return confirmar();" href="listaPublicacao.php?e='.$pub['id'].'" class="ls-btn ls-ico-remove bt-deletar-reprovar" title="Excluir"></a>
+							 </td>';
 					echo '</tr>';
 				
 				}
@@ -236,36 +241,11 @@
 		<br><br>
 		<a href="cadastroPublicacao.php" class="ls-btn-primary col-lg-3 col-xs-12 botao-p ls-float-right">Cadastrar</a>
 	</div>
-	
-	<?php 
-	
-	/*
-	
-		if ($read->getResult()){
-			
-			
-			foreach ($read->getResult() as $pub){
-				echo $pub['id'].'<br>';
-				echo utf8_decode($pub['titulo']).'<br>';
-				echo utf8_decode($pub['resumo']).'<br>';
-				echo $pub['ano'].'<br>';
-				echo utf8_decode($pub['autores']).'<br>';
-				echo utf8_decode($pub['evento']).'<br>';
-				echo utf8_decode($pub['area']).'<br>';
-				echo '<hr><br>';
-
-			}
-			
-		}
-	*/
-	?>
-	
-	
+		
 	</div>
       <?php require_once('footer.php');?>
     </main>
 
-    
     <?php require_once('assets-footer.php');?>
 
   </body>
