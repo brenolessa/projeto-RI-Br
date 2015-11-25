@@ -43,11 +43,11 @@ class Login{
 	
 	private function setLogin() {
 		if (!$this->login || !$this->senha){
-			$this->error = ['Informe seu login e senha!'];
+			$this->error = ['Informe seu login e senha!' , RI_MSG_WARNING];
 			$this->result = false;
 		}
 		else if (!$this->getUser()){
-			$this->error = ['Dados inválidos!'];
+			$this->error = ['Dados inválidos!' , RI_MSG_DANGER];
 			$this->result = false;
 		}
 		else {
