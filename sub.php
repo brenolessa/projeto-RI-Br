@@ -43,6 +43,7 @@
 	if (isset($_GET['e'])){
 	
 		$e = $_GET['e'];
+		$p = $_GET['p'];
 	
 	
 		$delete = new Delete();
@@ -53,6 +54,9 @@
 				
 			$excluir = 'Publicação rejeitada com sucesso!';
 			$excluirTipo = RI_MSG_SUCCESS;
+			
+			//excluindo o pdf
+			unlink("uploads/{$p}");
 			
 			$read->ExeRead('publicacao', 'WHERE aprovado = :aprovado', 'aprovado=N');
 				
@@ -120,7 +124,7 @@
       <div class="container-fluid">
         <h1 class="ls-title-intro ls-ico-thumbs-up">Aprovar Submissões - Publicação</h1>
 	
-		<div class="col-lg-12 col-xs-12">
+		<div class="col-lg-12 col-xs-12" style="margin-bottom: 40px; ">
 			<?php 
 			if ($excluirTipo != ''){
 				
@@ -153,7 +157,7 @@
 							echo '<td style="text-align:center;">
     								<a href="sub.php?id='.$pub['id'].'" class="ls-btn ls-ico-checkmark bt-aprovar" title="Aprovar"></a>
 								   	
-    								<a onclick="return confirmar();" href="sub.php?e='.$pub['id'].'" class="ls-btn ls-ico-close bt-deletar-reprovar" title="Rejeitar"></a>
+    								<a onclick="return confirmar();" href="sub.php?e='.$pub['id'].'&p='.$pub['arquivo'].'" class="ls-btn ls-ico-close bt-deletar-reprovar" title="Rejeitar"></a>
 								 </td>';
 
 						echo '</tr>';
