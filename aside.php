@@ -1,4 +1,4 @@
-<aside class="ls-sidebar">
+Ôªø<aside class="ls-sidebar">
     <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
         
               <a href="#" class="ls-ico-user" style="text-transform:uppercase;">
@@ -6,7 +6,7 @@
               </a>
               <nav class="ls-dropdown-nav ls-user-menu">
                 <ul>
-                  <li><a href="alterarSenha.php">Alterar Senha</a></li>
+                  <li><a href="perfil.php">Perfil</a></li>
                   <!-- <li><a href="pefil.php">Meus dados</a></li> -->
                   <li><a href="logout.php">Sair</a></li>
                 </ul>
@@ -18,24 +18,16 @@
       
       <nav class="ls-menu">
         <ul>
-           <li><a href="painel.php" class="ls-ico-home" title="P·gina Inicial">P·gina Inicial</a></li>
+           <li><a href="painel.php" class="ls-ico-home" title="P√°gina Inicial">P√°gina Inicial</a></li>
            <li><a href="listaPesquisa.php" class="ls-ico-ftp" title="Projeto de Pesquisa">Projeto de Pesquisa</a></li>
-           <li><a href="listaExtensao.php" class="ls-ico-lamp" title="Projeto de Extens„o">Projeto de Extens„o</a></li>
-           <li><a href="listaPublicacao.php" class="ls-ico-docs" title="PublicaÁ„o">PublicaÁ„o</a></li>
-           
-           <!-- <li>
-            <a href="#" class="ls-ico-plus" title="Cadastros gerais">Cadastros</a>
-            <ul>
-              <li><a href="cadEvento.php">Cadastro de Eventos</a></li>
-              <li><a href="cadCurso.php">Cadastro de Cursos</a></li>
-              <li><a href="cadParticipante.php">Cadastro de Participantes</a></li>
-            </ul>
-          </li> -->
-           
+           <li><a href="listaExtensao.php" class="ls-ico-lamp" title="Projeto de Extens√£o">Projeto de Extens√£o</a></li>
+           <li><a href="listaPublicacao.php" class="ls-ico-docs" title="Publica√ß√£o">Publica√ß√£o</a></li>
+           <li><a href="sub.php" class="ls-ico-cloud-upload" title="Submiss√µes">Submiss√µes</a></li>
+                   
            <li>
-            <a href="#" class="ls-ico-cog" title="ConfiguraÁıes">ConfiguraÁıes</a>
+            <a href="#" class="ls-ico-cog" title="Configura√ß√µes">Configura√ß√µes</a>
             <ul>
-              <li><a href="alterarSenha.php">Alterar Senha</a></li>
+              <li><a href="perfil.php">Perfil</a></li>
               <!-- <li><a href="perfil.php">Meus Dados</a></li> -->
             </ul>
           </li>
