@@ -1,8 +1,9 @@
-<?php 
+Ôªø<?php 
 
 require 'app/Config.inc.php';
 
 $read = new Read();
+$resultado = true;
 
 $form= filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if($form && $form['submit']){
@@ -10,44 +11,39 @@ if($form && $form['submit']){
 	if (isset($form['submit'])){
 
 		if (!$_POST['busca']){
-			echo "Digite um termo para busca";
-			echo '<hr>';
+
+			MSG("Digite um termo para busca", RI_MSG_WARNING);
+			
 		}
 		else if ($_POST['busca']){
-			//echo "Pesquisa...";
 			
 			$busca = $_POST['busca'];
 			$categoria = $_POST['categoria'];
 			$tipo = $_POST['tipo'];
 
 			$read = new Read();
-			//$read->FullRead("SELECT * FROM categoria :categoria WHERE tipo :tipo LIKE :like", "categoria={$categoria}&tipo={$tipo}&like={$busca}%");
-			
 			$read->FullRead("SELECT * FROM {$categoria} WHERE {$tipo} LIKE \"%{$busca}%\"");
-							
-			if ($read->getConn()){
-				//var_dump($read->getResult());
-				//echo "<hr>";
-
+			
+			if(!$read->getResult()){
+				$resultado = false;
 			}
-					
-			//var_dump($read);
-
+										
 		}
 	}
 
 
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>RepositÛrio Institucional - IFBA - VCA</title>
+    <title>Reposit√≥rio Institucional - IFBA - VCA</title>
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/repositorio.css" rel="stylesheet">
@@ -69,7 +65,7 @@ if($form && $form['submit']){
 				// "sPaginationType": "full_numbers",
 				// "sDom": '<"H"Tlfr>t<"F"ip>',
 				"oLanguage": {
-					"sLengthMenu": "Registros/P·gina _MENU_",
+					"sLengthMenu": "Registros/P√°gina _MENU_",
 					"sZeroRecords": "Nenhum registro encontrado",
 					"sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
 					"sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
@@ -78,8 +74,8 @@ if($form && $form['submit']){
 					"oPaginate": {
 						// "sFirst": " Primeiro ",
 						"sPrevious": " Anterior ",
-						"sNext": " PrÛximo ",
-						// "sLast": " ⁄ltimo "
+						"sNext": " Pr√≥ximo ",
+						// "sLast": " √öltimo "
 					}
 				},
 				"aaSorting": [[0, 'desc']],
@@ -92,145 +88,141 @@ if($form && $form['submit']){
   </head>
   <body>
 
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" target="__blank" href="http://conquista.ifba.edu.br/">
-      	<img alt="RepositÛrio Institucional IFBA Campus VitÛria da Conquista" class="img-responsive img" src="assets/images/ifba.png">
-      </a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="li-login"><a href="admin.php" class="login" style="color:#FFFFFF;" title="¡rea do Administrador"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li> -->
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-
-
-
-
-<div class="container abc">
-
-	<div class="row text-center">
-		<h1>RI<span class="ft">IFBA</span></h1>
-		<h2>RepositÛrio Institucional do IFBA <i>Campus</i> VitÛria da Conquista</h2>
-
-		<div class="col-md-12 col-lg-12 c">
-			<form action="" method="post" enctype="multipart/form-data" style="background-color:;">
-
-				<div class="form-group col-lg-5 col-md-5">
-			    	<label class="sr-only" for="">Digite um termo para busca</label>
-					<input type="search" class="form-control inp" name="busca" id="" placeholder="Digite um termo para pesquisar..." required>
-				</div>
-
-				<div class="form-group col-lg-3 col-md-3">
-			    	<select class="form-control inp" name="categoria">
-						<option value="publicacao" selected>PublicaÁ„o</option>
-						<option value="pesquisa">Projeto de Pesquisa</option>
-						<option value="extensao">Projeto de Extens„o</option>
-					</select>
-				</div>
-
-				<div class="form-group col-lg-2 col-md-2">
-					<select class="form-control inp" name="tipo">
-						<option value="area">¡rea</option>
-						<option value="titulo" selected>TÌtulo</option>
-						<option value="autores">Autor</option>
-						<option value="ano">Ano</option>
-					</select>
-				</div>
-
-				<div class="form-group col-lg-2 col-md-2">
-					<input type="submit" class="btn btn-default inp bt-lg" name="submit" value="Pesquisar">
-				</div>
-
-			</form>
-
-		</div>
-	</div>
-
-
-	
-	
-	
-	
-	<?php
-		if ($read->getResult()){
-	
-	echo '
-	<hr>
-	<div class="col-lg-12 col-md-12 contorno-table">
-		<table class="ls-table a ls-bg-header ls-table-striped ls-table-bordered display" cellspacing="0" cellpadding="0" border="0" id="tb1">
-			<thead>
-				<th>Ano</th>
-				<th>TÌtulo</th>
-				<th>Autor (es)</th>
-				<th>Detalhes</th>
-			</thead>
-			<tbody>';
-					
-						foreach ($read->getResult() as $r){
-							echo '<tr>';
-								echo '<td>'.$r['ano'].'</td>';
-								echo '<td><a href="view.php?id='.$r['id'].'&categoria='.$categoria.'">'.utf8_decode($r['titulo']).'</a></td>';
-								echo '<td>'.utf8_decode($r['autores']).'</td>';
-								echo '<td><a href="view.php?id='.$r['id'].'&categoria='.$categoria.'" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>';
-							echo '</tr>';
-						
-						}
-		echo '			
-			</tbody>
-		</table>
-	</div>';	
+	  <nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="index.php">
+		      	<img alt="Reposit√≥rio Institucional IFBA Campus Vit√≥ria da Conquista" class="img-responsive img" src="assets/images/ifba.png">
+		      </a>
+		    </div>
 		
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav navbar-right">
+		      	<li class="li-login"><a href="submeter.php" class="submeter" title="Submeter Publica√ß√£o"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Submeter</a></li>
+		        <li class="li-login"><a href="admin.php" class="login" title="√Årea do Administrador"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Login</a></li>
+		        <!-- <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">Action</a></li>
+		            <li><a href="#">Another action</a></li>
+		            <li><a href="#">Something else here</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">Separated link</a></li>
+		          </ul>
+		        </li> -->
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+		<div class="container abc">
+		
+		<?php 
+		$get = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
+		if (!empty($get)){
+			if ($get == 'restrito'){
+				MSG('Acesso negado: Por favor efetue login para acessar o Painel!', RI_MSG_DANGER);
+			}
+			else if($get == 'logoff') {
+				MSG('Sucesso ao deslogar: Sua sess√£o foi finalizada. Volte sempre!', RI_MSG_SUCCESS);
+			}
 		}
-	?>
-</div>
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="pre-cop"></div>
-		<div class="cop">
-			<p>2015-<?= date('Y');?> RIIFBA. Desenvolvido por <a href="http://lattes.cnpq.br/5590242674758693" target="__blank" class="lattes" title="Lattes">Breno Lessa</a> e <a href="http://lattes.cnpq.br/7272567597428470" target="__blank" class="lattes" title="Lattes">Moara Brito</a></p>
+		?>
+		
+			<div class="row text-center">
+				<h1>RI<span class="ft">IFBA</span></h1>
+				<h2>Reposit√≥rio Institucional do IFBA <i>Campus</i> Vit√≥ria da Conquista</h2>
+		
+				<div class="col-md-12 col-lg-12 c">
+					<form action="index.php" method="post" enctype="multipart/form-data" style="background-color:;">
+		
+						<div class="form-group col-lg-5 col-md-5">
+					    	<label class="sr-only" for="">Digite um termo para busca</label>
+							<input type="search" class="form-control inp" name="busca" id="" placeholder="Digite um termo para pesquisar..." required>
+						</div>
+		
+						<div class="form-group col-lg-3 col-md-3">
+					    	<select class="form-control inp" name="categoria">
+								<option value="publicacao" selected>Publica√ß√£o</option>
+								<option value="pesquisa">Projeto de Pesquisa</option>
+								<option value="extensao">Projeto de Extens√£o</option>
+							</select>
+						</div>
+		
+						<div class="form-group col-lg-2 col-md-2">
+							<select class="form-control inp" name="tipo">
+								<option value="area">√Årea</option>
+								<option value="titulo" selected>T√≠tulo</option>
+								<option value="autores">Autor</option>
+								<option value="ano">Ano</option>
+							</select>
+						</div>
+		
+						<div class="form-group col-lg-2 col-md-2">
+							<input type="submit" class="btn btn-default inp bt-lg" name="submit" value="Pesquisar">
+						</div>
+		
+					</form>
+		
+				</div>
+			</div>
+		
+			<?php
+			if (!$resultado){
+			
+				MSG("Nenhum resultado encontrado!", RI_MSG_DANGER);
+			
+			}
+			else if ($read->getResult()){
+			
+				echo '
+				<hr>
+				<div class="col-lg-12 col-md-12 contorno-table">
+					<table class="ls-table a ls-bg-header ls-table-striped ls-table-bordered display" cellspacing="0" cellpadding="0" border="0" id="tb1">
+						<thead>
+							<th>Ano</th>
+							<th>T√≠tulo</th>
+							<th>Autor (es)</th>
+							<th>Detalhes</th>
+						</thead>
+						<tbody>';
+								
+									foreach ($read->getResult() as $r){
+										echo '<tr>';
+											echo '<td>'.$r['ano'].'</td>';
+											echo '<td><a href="view.php?id='.$r['id'].'&categoria='.$categoria.'">'.$r['titulo'].'</a></td>';
+											echo '<td>'.$r['autores'].'</td>';
+											echo '<td style="text-align:center;"><a href="view.php?id='.$r['id'].'&categoria='.$categoria.'" class="btn bt-visualizar" title="Visualizar"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>';
+										echo '</tr>';
+									
+									}
+					echo '			
+						</tbody>
+					</table>
+				</div>';	
+				
+			}
+			?>
 		</div>
-	</div>
-</div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="pre-cop"></div>
+				<div class="cop">
+					<p>2015-<?= date('Y');?> RIIFBA. Desenvolvido por <a href="http://lattes.cnpq.br/5590242674758693" target="__blank" class="lattes" title="Lattes">Breno Lessa</a> e <a href="http://lattes.cnpq.br/7272567597428470" target="__blank" class="lattes" title="Lattes">Moara Brito</a></p>
+				</div>
+			</div>
+		</div>
 	
-	
+    	<script src="assets/js/bootstrap.min.js"></script>
 
-
-
-
-
-	
-
-
-
-
-	
-	
-    <script src="assets/js/bootstrap.min.js"></script>
-
-  </body>
+	</body>
 </html>
