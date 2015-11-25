@@ -1,4 +1,4 @@
-<?php 	
+Ôªø<?php 	
 	session_start();
 	require 'app/Config.inc.php';
 	$login = new Login();
@@ -12,6 +12,8 @@
 		$userLogin = $_SESSION['userlogin'];
 	}
 	
+	$resultado = false;
+	$texto = null;
 	
 	if (isset($_GET['id'])){
 		
@@ -28,84 +30,81 @@ if (isset($_POST['titulo'])){
 	//if($form && $form['submit']){
 	
 	
-		//$file = $_FILES['pesquisa'];
-		//if ($file['name']){
-			//$upload = new Upload('uploads/');
-			//$upload->File($file);
-	
+		$file = $_FILES['publicacao'];
+		if ($file['name']){
 			
-			$dados = [ 
-				'titulo' => utf8_encode ( $_POST ['titulo'] ),
-				'resumo' => utf8_encode ( $_POST ['resumo'] ),
-				'ano' => $_POST ['ano'],
-				'autores' => utf8_encode ( $_POST ['autores'] ),
-				'evento' => utf8_encode ( $_POST ['evento'] ),
-				'area' => utf8_encode ( $_POST ['area'] ) 
-			];
+			//$pdf = substr($busca->getResult()[0]['arquivo'], 0, strrpos($busca->getResult()[0]['arquivo'], '.'));
+						
+			//unlink("uploads/{$pdf}");
 			
-			$update = new Update();
-			$update->ExeUpdate('publicacao', $dados, "WHERE id = :id", "id={$i}");
 			
-			if ($update->getResult()){
-				echo "{$update->getRowCount()} dados atualizados com sucesso! <hr>";
-				//header("Location:editarPesquisa.php?id=$i");
-				$busca->ExeRead("publicacao", "WHERE id = :id", "id={$i}");
+						
+			
+			$upload = new Upload('uploads/');
+			$upload->File($file);
+			
+			//se deu errado
+			if ($upload->getError()){
+				$texto = $upload->getError();
+			}
+			//se deu certo
+			else {
+				unlink("uploads/{$busca->getResult()[0]['arquivo']}");
+				
+				$dados = [
+						'titulo' => $_POST ['titulo'],
+						'resumo' => $_POST ['resumo'],
+						'ano' => $_POST ['ano'],
+						'autores' => $_POST ['autores'],
+						'evento' => $_POST ['evento'],
+						'area' => $_POST ['area'],
+						'arquivo' => $upload->getResult()
+				];
+										
+				$update = new Update();
+				$update->ExeUpdate('publicacao', $dados, "WHERE id = :id", "id={$i}");
+					
+				if ($update->getResult()){
+					
+					$resultado = true;
+					//echo "{$update->getRowCount()} dados atualizados com sucesso! <hr>";
+					//header("Location:editarPesquisa.php?id=$i");
+					$busca->ExeRead("publicacao", "WHERE id = :id", "id={$i}");
+				
+				}
 				
 			}
-	
-		}
-		
-		
-	//}
-	
-	
-	/*
-	 * ANTIGO
-	 * 
-	 if (isset($_POST['titulo'])){	
-	//$form= filter_input_array(INPUT_POST, FILTER_DEFAULT);
-	//if($form && $form['submit']){
-	
-	
-		//$file = $_FILES['pesquisa'];
-		//if ($file['name']){
-			//$upload = new Upload('uploads/');
-			//$upload->File($file);
-	
+
 			
-			$dados=[
-					'titulo' => utf8_encode($_POST['titulo']),
-					'resumo' => utf8_encode($_POST['resumo']),
-					'ano' => $_POST['ano'],
-					'autores' => utf8_encode($_POST['autores']),
-					'orientador' => utf8_encode($_POST['orientador']),
-					'outorga' => $_POST['outorga'],
-					'financiamento' => utf8_encode($_POST['financiamento']),
-					'area' => utf8_encode($_POST['area'])
-						
+		} else {
+			
+			$dados = [
+					'titulo' => $_POST ['titulo'],
+					'resumo' => $_POST ['resumo'],
+					'ano' => $_POST ['ano'],
+					'autores' => $_POST ['autores'],
+					'evento' => $_POST ['evento'],
+					'area' => $_POST ['area']
 			];
-			
+								
 			$update = new Update();
-			$update->ExeUpdate('pesquisa', $dados, "WHERE id = :id", "id={$i}");
-			
+			$update->ExeUpdate('publicacao', $dados, "WHERE id = :id", "id={$i}");
+				
 			if ($update->getResult()){
-				echo "{$update->getRowCount()} dados atualizados com sucesso! <hr>";
-				var_dump($update);
+				$resultado = true;
+				//echo "{$update->getRowCount()} dados atualizados com sucesso! <hr>";
+				//header("Location:editarPesquisa.php?id=$i");
+				$busca->ExeRead("publicacao", "WHERE id = :id", "id={$i}");
+			
 			}
-	
-		}
-		
-		
-	//}
-	  */
-	
-	
-	
+			
+		}	
+}
 ?>
 <!DOCTYPE html>
 <html class="ls-theme-green">
   <head>
-    <title>RepositÛrio IFBA - VCA</title>
+    <title>Reposit√≥rio Institucional - IFBA - VCA</title>
 
     <?php require_once('assets.php');?>
      
@@ -118,19 +117,29 @@ if (isset($_POST['titulo'])){
 
     <main class="ls-main ">
       <div class="container-fluid">
-        <h1 class="ls-title-intro ls-ico-pencil2">Editar PublicaÁ„o</h1>
+        <h1 class="ls-title-intro ls-ico-pencil2">Editar Publica√ß√£o</h1>
+        
+        <?php
+		if ($resultado){
+		
+			MSG("Atualizado com sucesso!", RI_MSG_SUCCESS);
+		
+		} else if ($texto != null) {
+			MSG($texto, RI_MSG_DANGER);
+		}
+		?>
 
         <form action="editarPublicacao.php?id=<?= $i ?>" name="" method="post"
 			enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
 
 			<label class="ls-label col-lg-12 col-xs-12">
-		      <b class="ls-label-text">TÌtulo:</b>
-		      <input type="text" name="titulo" placeholder="TÌtulo da PublicaÁ„o" value="<?php echo utf8_decode($busca->getResult()[0]['titulo']); ?>" class="ls-field" required>
+		      <b class="ls-label-text">T√≠tulo:</b>
+		      <input type="text" name="titulo" placeholder="T√≠tulo da Publica√ß√£o" value="<?php echo $busca->getResult()[0]['titulo']; ?>" class="ls-field" required>
 		    </label>
 
 		    <label class="ls-label col-lg-12 col-xs-12">
 		      <b class="ls-label-text">Resumo:</b>
-		      <textarea name="resumo" placeholder="Resumo" rows="10" class="ls-field" required><?php echo utf8_decode($busca->getResult()[0]['resumo']); ?></textarea>
+		      <textarea name="resumo" placeholder="Resumo" rows="10" class="ls-field" required><?php echo $busca->getResult()[0]['resumo']; ?></textarea>
 		    </label>
 
 		    <label class="ls-label col-lg-12 col-xs-12">
@@ -140,22 +149,22 @@ if (isset($_POST['titulo'])){
 
 		    <label class="ls-label col-lg-12 col-xs-12">
 		      <b class="ls-label-text">Autor(es):</b>
-		      <input type="text" name="autores" placeholder="Autor(es)" value="<?php echo utf8_decode($busca->getResult()[0]['autores']); ?>" class="ls-field" required>
+		      <input type="text" name="autores" placeholder="Autor(es)" value="<?php echo $busca->getResult()[0]['autores']; ?>" class="ls-field" required>
 		    </label>
 
 		    <label class="ls-label col-lg-12 col-xs-12">
 		      <b class="ls-label-text">Evento:</b>
-		      <input type="text" name="evento" placeholder="Evento" class="ls-field" value="<?php echo utf8_decode($busca->getResult()[0]['evento']); ?>" required>
+		      <input type="text" name="evento" placeholder="Evento" class="ls-field" value="<?php echo $busca->getResult()[0]['evento']; ?>" required>
 		    </label>
 
 		    <label class="ls-label col-lg-12 col-xs-12">
-		      <b class="ls-label-text">¡rea</b>
-		      <input type="text" name="area" placeholder="¡rea" class="ls-field" value="<?php echo utf8_decode($busca->getResult()[0]['area']); ?>" required>
+		      <b class="ls-label-text">√Årea</b>
+		      <input type="text" name="area" placeholder="√Årea" class="ls-field" value="<?php echo $busca->getResult()[0]['area']; ?>" required>
 		    </label>
 
 		    <label class="ls-label col-lg-12 col-xs-12">
 		      <b class="ls-label-text">Arquivo:</b>
-		      <input type="file" name="publicacao" accept="application/pdf" class="ls-field" required>
+		      <input type="file" name="publicacao" accept="application/pdf" class="ls-field">
 		    </label>			
 
 			<!-- <div class="ls-actions-btn col-lg-12 col-xs-12">

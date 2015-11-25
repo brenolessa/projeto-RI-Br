@@ -1,10 +1,10 @@
-<div class="ls-topbar ">
+ï»¿<div class="ls-topbar ">
 
-  <!-- Barra de Notificações -->
+  <!-- Barra -->
   <div class="ls-notification-topbar">
 
-    <!-- Dropdown com detalhes da conta de usuário -->
-    <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
+    <!-- Dropdown com detalhes da conta -->
+    <div data-ls-module="dropdown" class="ls-dropdown ls-user-account acc">
       <a href="#" class="ls-ico-user">
         <!-- <img src="images/locastyle/avatar-example.jpg" alt="" /> -->
         <span class="ls-name" style="text-transform:uppercase;"><?php echo $userLogin['nome']; ?></span>
@@ -12,7 +12,7 @@
 
       <nav class="ls-dropdown-nav ls-user-menu">
         <ul>
-          <li><a href="alterarSenha.php">Alterar Senha</a></li>
+          <li><a href="perfil.php">Perfil</a></li>
           <!-- <li><a href="pefil.php">Meus dados</a></li> -->
           <li><a href="logout.php">Sair</a></li>
          </ul>
@@ -24,7 +24,7 @@
 
   <!-- Nome do produto/marca com sidebar -->
     <h1 class="ls-brand-name">
-      <a href="inicio.php" class="ls-ico-ftp">
+      <a href="painel.php" class="">
         <small>Painel do administrador</small>
         RIIFBA
       </a>
