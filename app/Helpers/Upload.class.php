@@ -41,7 +41,7 @@ class Upload {
 		
 		if ($this->file['size'] > ($maxFileSize * (1024 * 1024))){
 			$this->result = false;
-			$this->error = "Arquivo muito grande, tamanho máximo permitido é de {$maxFileSize}mb";
+			$this->error = "Arquivo muito grande, tamanho máximo permitido é de {$maxFileSize}mb.";
 		}
 		else if (!in_array($this->file['type'], $fileAccept)){
 			$this->result = false;
@@ -58,11 +58,12 @@ class Upload {
 	
 	//PRIVATES
 	private function CheckFolder($folder) {
-		list($y, $m) = explode('/', date('Y/m'));
+		//list($y, $m) = explode('/', date('Y/m'));
 		$this->CreateFolder("{$folder}");
-		$this->CreateFolder("{$folder}/{$y}");
-		$this->CreateFolder("{$folder}/{$y}/{$m}/");
-		$this->send = "{$folder}/{$y}/{$m}/";
+		//$this->CreateFolder("{$folder}/{$y}");
+		//$this->CreateFolder("{$folder}/{$y}/{$m}/");
+		//$this->send = "{$folder}/{$y}/{$m}/";
+		$this->send = "{$folder}/";
 	}
 	
 	private function CreateFolder($folder) {
@@ -79,10 +80,16 @@ class Upload {
 		return $this->error;
 	}
 	
+	public function getName() {
+		return $this->name;
+	}
+	
 	//VOLTAR AQUI DEPOIS
 	
 	private function setFileName() {
-		$fileName = Check::Name($this->name) . strrchr($this->file['name'], '.');
+		//$fileName = Check::Name($this->name) . strrchr($this->file['name'], '.');
+
+		$fileName = time() . strrchr($this->file['name'], '.');
 		
 		if (file_exists(self::$baseDir . $this->send . $fileName)){
 			$fileName = Check::Name($this->name) . '-' . time() . strrchr($this->file['name'], '.');
@@ -101,6 +108,8 @@ class Upload {
 			$this->error = 'Erro ao mover o arquivo. Favor tente mais tarde!';
 		}
 	}
+		
+	
 	
 	
 	
