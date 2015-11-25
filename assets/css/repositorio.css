@@ -122,12 +122,19 @@ a:hover{
 	color: #2C3E50;
 }
 nav, .navbar-nav, .navbar-right, .login{
-	background-color: #2c3e50;
-	border-radius: 3px;
 	padding: 5px 30px;
 	text-transform: uppercase;
 	font-size: 15px;
 	font-family: 'gr';
+}
+.login{
+	background-color: #2c3e50;
+	border-radius: 3px;
+	color: #FFFFFF!important;
+}
+.login:hover{
+	background-color: #2ECC71!important;
+	color: #FFFFFF!important;
 }
 .navbar-brand{
 	margin-top: -10px;
@@ -140,7 +147,6 @@ h1{
 	color: #FFFFFF;
 	text-shadow: 0px 2px 8px #1f914f;
 }
-
 h2{
 	font-family: 'ml';
 	font-size: 25px;
@@ -159,6 +165,9 @@ h2{
 }
 .abc{
 	min-height: 550px;
+}
+.abcd{
+	min-height: 600px;
 }
 .pre-cop{
 	background-color:#44494B;
@@ -208,4 +217,99 @@ h2{
 .hh{
 	color: #2c3e50;
 	margin-bottom: 20px;
+}
+.detalhes{
+	font-size: 40px;
+	text-align: center;
+	text-shadow: none;
+	margin-bottom: 40px;
+}
+.view{
+	background-color: #FFFFFF;
+	box-shadow: 0px 4px 10px #27ae60;
+	font-family: 'ml';
+	font-size: 18px;
+	text-align: justify;
+	/*border-radius: px;*/
+	padding: 40px;
+	margin-bottom: 40px;
+}
+.title{
+	font-family: 'mr';
+	font-weight: bold;
+}
+.download{
+	text-align:center;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.alert{
+	border-style: none;
+	border-radius:0px;
+	font-family: 'ml';
+	margin: 10px;
+}
+
+.alert-success{
+	background-color: #27ae60;
+	color: #FFFFFF;
+}
+.alert-info{
+	background-color: #2980b9;
+	color: #FFFFFF;
+}
+.alert-warning{
+	background-color: #f1c40f;
+	color: #FFFFFF;
+}
+.alert-danger{
+	background-color: #e74c3c;
+	color: #FFFFFF;
+}
+.submeter{
+	padding: 5px 30px;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-family: 'gr';
+	color:#2c3e50!important;
+}
+.submeter:hover{
+	color:#2ECC71!important;
+}
+.ta{
+	font-family: 'rr';
+}
+.border-form{
+	/*background-color: rgba(39, 174, 96, 0.8);*/
+	background-color: #FFFFFF;
+	padding: 20px 0px;
+	padding-top: 30px;
+	box-shadow: 0px 4px 10px #27ae60;
+	margin-bottom: 40px;
+	font-family: 'rr';
+	text-transform: uppercase;
+}
+.br{
+	border-radius: 0px!important;
+	border-style: none;
+	border: 1px solid #2ECC71;
+}
+.h1e{
+	margin-top: 50px!important;
+}
+.requisito{
+	color: #2ECC71;
+}
+.bt-visualizar{
+	background-color: #2ecc71!important;
+	color:#FFFFFF!important;
+	border-style: none!important;
+	border-radius: 0px!important;
+}
+.bt-visualizar:hover{
+	background-color: #bdc3c7!important;
+	color:#ecf0f1!important;
+	border-style: none!important;
+	border-radius: 0px!important;
 }

@@ -1,3 +1,9 @@
+@font-face {
+    font-family:ml;
+    src: url('../fonts/ml.otf');
+	font-weight: normal;
+	font-style: normal;
+}
 .botao-p{
 	padding: 20px 70px!important;
 	text-transform: uppercase;
@@ -33,6 +39,126 @@
 .ls-theme-green .ls-brand-name {
     background-color: #2fcc72;
 }
-.ls-theme-green .ls-user-account {
-    background: #27ae60;
+.acc {
+    background: #27ae60!important;
+}
+
+.alert {
+  	padding: 15px;
+  	border-style: none;
+	border-radius:0px;
+	font-family: 'ml';
+	margin: 10px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+    border-color: #d6e9c6;
+    background-color: #27ae60;
+	color: #FFFFFF;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  background-color: #2980b9;
+	color: #FFFFFF;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  background-color: #f1c40f;
+	color: #FFFFFF;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  background-color: #e74c3c;
+	color: #FFFFFF;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+.bt-deletar-reprovar{
+	background-color: #c0392b;
+	color:#FFFFFF;
+	border-style: none;
+	border-radius: 0px;
+}
+.bt-aprovar{
+	background-color: #2ecc71;
+	color:#FFFFFF;
+	border-style: none;
+	border-radius: 0px;
+}
+.bt-editar{
+	background-color: #f39c12;
+	color:#FFFFFF;
+	border-style: none;
+	border-radius: 0px;
 }

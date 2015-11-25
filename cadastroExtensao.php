@@ -1,4 +1,4 @@
-<?php 	
+Ôªø<?php 	
 	session_start();
 	require 'app/Config.inc.php';
 	$login = new Login();
@@ -13,7 +13,8 @@
 	}
 	
 	
-	
+	$resultado = false;
+	$texto = null;
 	
 	$form= filter_input_array(INPUT_POST, FILTER_DEFAULT);
 	if($form && $form['submit']){
@@ -22,30 +23,33 @@
 		if ($file['name']){
 			$upload = new Upload('uploads/');
 			$upload->File($file);
-	
+			
+			if ($upload->getError()){
+				$texto = $upload->getError();
+			}	
 			
 			$dados=[
-					'titulo' => utf8_encode($_POST['titulo']),
-					'resumo' => utf8_encode($_POST['resumo']),
+					'titulo' => $_POST['titulo'],
+					'resumo' => $_POST['resumo'],
 					'ano' => $_POST['ano'],
-					'autores' => utf8_encode($_POST['autores']),
-					'coordenador' => utf8_encode($_POST['coordenador']),
-					'unidadeExecutora' => utf8_encode($_POST['unidadeExecutora']),
-					'area' => utf8_encode($_POST['area']),
+					'autores' => $_POST['autores'],
+					'coordenador' => $_POST['coordenador'],
+					'unidadeExecutora' => $_POST['unidadeExecutora'],
+					'area' => $_POST['area'],
 					'dataInicio' => $_POST['dataInicio'],
 					'dataTermino' => $_POST['dataTermino']
 					
 			];
 			
-			$cadastra = new Create();
-			$cadastra->ExeCreate('extensao', $dados);
-			
-			if ($cadastra->getResult()){
-				echo "Cadastro com sucesso!<hr>";
-				echo 'ID:'.$cadastra->getResult();
+			if($upload->getResult()){
+				$cadastra = new Create();
+				$cadastra->ExeCreate('extensao', $dados);
+				
+				if ($cadastra->getResult()){
+					$resultado = true;
+				}
 			}
 
-			var_dump($upload, $cadastra);
 		}
 
 			
@@ -62,7 +66,7 @@
 <!DOCTYPE html>
 <html class="ls-theme-green">
   <head>
-    <title>RepositÛrio IFBA - VCA</title>
+    <title>Reposit√≥rio Institucional - IFBA - VCA</title>
 
     <?php require_once('assets.php');?>
      
@@ -75,13 +79,25 @@
 
     <main class="ls-main ">
       <div class="container-fluid">
-        <h1 class="ls-title-intro ls-ico-plus">Cadastro de Projeto de Extens„o</h1>
+        <h1 class="ls-title-intro ls-ico-plus">Cadastro de Projeto de Extens√£o</h1>
+		
+		<?php
+		if ($resultado){
+		
+			MSG("Cadastrado com sucesso!", RI_MSG_SUCCESS);
+		
+		} else if ($texto != null) {
+			MSG($texto, RI_MSG_DANGER);
+		}
+		?>
+		
+		<?php MSG('Todos os campos s√£o obrigat√≥rios!', RI_MSG_INFO) ?>
 	
 	<form action="" name="cadExtensao" method="post" enctype="multipart/form-data" class="ls-form ls-form-horizontal row">
 		
 		<label class="ls-label col-lg-12 col-xs-12">
-	      <b class="ls-label-text">TÌtulo:</b>
-	      <input type="text" name="titulo" placeholder="TÌtulo do Projeto de Extens„o" class="ls-field" required>
+	      <b class="ls-label-text">T√≠tulo:</b>
+	      <input type="text" name="titulo" placeholder="T√≠tulo do Projeto de Extens√£o" class="ls-field" required>
 	    </label>
 
 	    <label class="ls-label col-lg-12 col-xs-12">
@@ -100,8 +116,8 @@
 	    </label>
 
 	    <label class="ls-label col-lg-12 col-xs-12">
-	      <b class="ls-label-text">¡rea:</b>
-	      <input type="text" name="area" placeholder="¡rea" class="ls-field" required>
+	      <b class="ls-label-text">√Årea:</b>
+	      <input type="text" name="area" placeholder="√Årea" class="ls-field" required>
 	    </label>
 
 	    <label class="ls-label col-lg-4 col-xs-12">
@@ -110,12 +126,12 @@
 	    </label>
 
 	    <label class="ls-label col-lg-4 col-xs-12">
-	      <b class="ls-label-text">Data de InÌcio:</b>
+	      <b class="ls-label-text">Data de In√≠cio:</b>
 	      <input type="date" name="dataInicio" class="ls-field" required>
 	    </label>
 
 	    <label class="ls-label col-lg-4 col-xs-12">
-	      <b class="ls-label-text">Data de TÈrmino</b>
+	      <b class="ls-label-text">Data de T√©rmino</b>
 	      <input type="date" name="dataTermino" class="ls-field" required>
 	    </label>
 
