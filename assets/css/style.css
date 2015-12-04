@@ -162,3 +162,18 @@ button.close {
 	border-style: none;
 	border-radius: 0px;
 }
+.titulo-relatorio{
+	color:#2ecc71;
+	font-weight: normal;
+	font-size: 20px;
+}
+.bt-rel{
+	padding: 6px 40px!important;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	border-style: none;
+	border-radius: 0px;
+	font-size: 16px;
+
+	border-left: 10px solid #27ae60!important;
+}

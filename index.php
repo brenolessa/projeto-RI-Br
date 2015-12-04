@@ -22,7 +22,13 @@ if($form && $form['submit']){
 			$tipo = $_POST['tipo'];
 
 			$read = new Read();
-			$read->FullRead("SELECT * FROM {$categoria} WHERE {$tipo} LIKE \"%{$busca}%\"");
+			
+			if ($categoria == 'publicacao'){
+				$read->FullRead("SELECT * FROM {$categoria} WHERE {$tipo} LIKE \"%{$busca}%\" AND aprovado = 'S'");
+			}
+			else {
+				$read->FullRead("SELECT * FROM {$categoria} WHERE {$tipo} LIKE \"%{$busca}%\"");
+			}
 			
 			if(!$read->getResult()){
 				$resultado = false;
@@ -58,9 +64,11 @@ if($form && $form['submit']){
     <![endif]-->
 
     <script type="text/javascript">
+    
 		$(document).ready(function() {
 
 			$('#tb1').dataTable({
+				
 				// "bJQueryUI": true,
 				// "sPaginationType": "full_numbers",
 				// "sDom": '<"H"Tlfr>t<"F"ip>',

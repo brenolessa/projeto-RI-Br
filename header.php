@@ -1,4 +1,4 @@
-﻿<div class="ls-topbar ">
+<div class="ls-topbar ">
 
   <!-- Barra -->
   <div class="ls-notification-topbar">
@@ -13,7 +13,6 @@
       <nav class="ls-dropdown-nav ls-user-menu">
         <ul>
           <li><a href="perfil.php">Perfil</a></li>
-          <!-- <li><a href="pefil.php">Meus dados</a></li> -->
           <li><a href="logout.php">Sair</a></li>
          </ul>
       </nav>
@@ -24,7 +23,7 @@
 
   <!-- Nome do produto/marca com sidebar -->
     <h1 class="ls-brand-name">
-      <a href="painel.php" class="">
+      <a href="painel.php" class="ls-ico-cog">
         <small>Painel do administrador</small>
         RIIFBA
       </a>

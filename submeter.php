@@ -24,6 +24,7 @@ if ($form && $form ['submit']) {
 				'autores' => $_POST ['autores'],
 				'evento' => $_POST ['evento'],
 				'arquivo' => $upload->getResult(),
+				'aprovado' => 'N',
 				'area' => $_POST ['area']
 		];
 

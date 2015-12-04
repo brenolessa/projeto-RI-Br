@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 class Upload {
 	
 	private $file;
@@ -24,14 +24,14 @@ class Upload {
 		}
 	}
 		
-	// o de file se tirar o 2º if ele aceita qualquer arquivo.
-	// foi criado o de imagem separado pq ele está fazendo redimensionamento nas imagens.
+	// o de file se tirar o 2Âº if ele aceita qualquer arquivo.
+	// foi criado o de imagem separado pq ele estÃ¡ fazendo redimensionamento nas imagens.
 	
 	public function File(array $file, $name = null, $folder = null, $maxFileSize = null) {
 		$this->file = $file;
 		$this->name = ((string) $name ? $name : substr($file['name'], 0, strrpos($file['name'], '.')));
 		$this->folder = ((string) $folder ? $folder : 'files');
-		// 2 abaixo é o tamanho do arquivo. MB
+		// 2 abaixo Ã© o tamanho do arquivo. MB
 		$maxFileSize = ((int) $maxFileSize ? $maxFileSize : 5);
 		
 		// aceitar pdf e docx
@@ -41,11 +41,11 @@ class Upload {
 		
 		if ($this->file['size'] > ($maxFileSize * (1024 * 1024))){
 			$this->result = false;
-			$this->error = "Arquivo muito grande, tamanho máximo permitido é de {$maxFileSize}mb.";
+			$this->error = "Arquivo muito grande, tamanho mÃ¡ximo permitido Ã© de {$maxFileSize}mb.";
 		}
 		else if (!in_array($this->file['type'], $fileAccept)){
 			$this->result = false;
-			$this->error = 'Tipo de arquivo não aceito! Envie .PDF';
+			$this->error = 'Tipo de arquivo nÃ£o aceito! Envie .PDF';
 		}
 		else {
 			$this->CheckFolder($this->folder);
@@ -97,7 +97,7 @@ class Upload {
 		$this->name = $fileName;
 	}
 		
-	//Envia arquivos e mídias
+	//Envia arquivos e mÃ­dias
 	private function MoveFile() {
 		if (move_uploaded_file($this->file['tmp_name'], self::$baseDir . $this->send . $this->name)){
 			$this->result = $this->send . $this->name;

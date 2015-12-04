@@ -33,6 +33,7 @@ if ($form && $form ['submit']) {
 				'evento' => $_POST ['evento'],
 				//'arquivo' => $upload->getName(),
 				'arquivo' => $upload->getResult(),
+				'aprovado' => 'S',
 				'area' => $_POST ['area'] 
 		];
 		

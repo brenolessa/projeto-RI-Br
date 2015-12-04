@@ -1,4 +1,4 @@
-﻿<aside class="ls-sidebar">
+<aside class="ls-sidebar">
     <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
         
               <a href="#" class="ls-ico-user" style="text-transform:uppercase;">
@@ -18,12 +18,11 @@
       
       <nav class="ls-menu">
         <ul>
-           <li><a href="painel.php" class="ls-ico-home" title="Página Inicial">Página Inicial</a></li>
+           <li><a href="painel.php" class="ls-ico-dashboard" title="Dashboard">Dashboard</a></li>
            <li><a href="listaPesquisa.php" class="ls-ico-ftp" title="Projeto de Pesquisa">Projeto de Pesquisa</a></li>
            <li><a href="listaExtensao.php" class="ls-ico-lamp" title="Projeto de Extensão">Projeto de Extensão</a></li>
            <li><a href="listaPublicacao.php" class="ls-ico-docs" title="Publicação">Publicação</a></li>
-           <li><a href="sub.php" class="ls-ico-cloud-upload" title="Submissões">Submissões</a></li>
-                   
+           <li><a href="sub.php" class="ls-ico-cloud-upload" title="Submissões">Submissões</a></li>                   
            <li>
             <a href="#" class="ls-ico-cog" title="Configurações">Configurações</a>
             <ul>

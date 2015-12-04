@@ -313,3 +313,34 @@ h2{
 	border-style: none!important;
 	border-radius: 0px!important;
 }
+
+.ph1{
+	font-size: 180px!important;
+	text-align: center;
+}
+.ph2{
+	text-align: center;
+}
+.pp{
+	margin-top: 40px;
+	text-align: center;
+}
+.pa{
+	color: #FFFFFF;
+	text-decoration: none;
+	font-family: 'ml';
+	background-color: #27ae60;
+	padding: 20px;
+}
+.pa:hover{
+	text-decoration: none;
+}
+.cccc{
+	margin-top: 60px;
+}
+
+@media only screen and (max-width: 479px) {
+	.ph1{
+		font-size: 150px!important;
+	}
+}

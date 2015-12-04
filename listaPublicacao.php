@@ -35,7 +35,7 @@
 				//echo "Título";
 				
 				
-				$read->FullRead("SELECT * FROM publicacao WHERE titulo LIKE :like", "like=%{$_POST['titulo']}%");
+				$read->FullRead("SELECT * FROM publicacao WHERE titulo LIKE :like AND aprovado = 'S'", "like=%{$_POST['titulo']}%");
 				if(!$read->getResult()){
 					$resultado = false;
 				}
@@ -44,7 +44,7 @@
 			else if (($_POST['autores'])){
 				//echo "Autores";
 	
-				$read->FullRead("SELECT * FROM publicacao WHERE autores LIKE :like", "like=%{$_POST['autores']}%");
+				$read->FullRead("SELECT * FROM publicacao WHERE autores LIKE :like AND aprovado = 'S'", "like=%{$_POST['autores']}%");
 				if(!$read->getResult()){
 					$resultado = false;
 				}
@@ -53,7 +53,7 @@
 			else if (($_POST['evento'])){
 				//echo "Evento";
 								
-				$read->FullRead("SELECT * FROM publicacao WHERE evento LIKE :like", "like={$_POST['evento']}%");
+				$read->FullRead("SELECT * FROM publicacao WHERE evento LIKE :like AND aprovado = 'S'", "like={$_POST['evento']}%");
 				if(!$read->getResult()){
 					$resultado = false;
 				}
